@@ -1,4 +1,4 @@
-package com.clickshop.entities;
+package com.clickshop.utils;
 
 public enum CustomerLevel {
     BRONZE, PRATA, OURO;

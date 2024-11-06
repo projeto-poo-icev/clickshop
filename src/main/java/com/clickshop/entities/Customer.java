@@ -2,6 +2,8 @@ package com.clickshop.entities;
 
 import java.time.LocalDate;
 
+import com.clickshop.utils.CustomerLevel;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -10,7 +12,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import com.clickshop.entities.CustomerLevel;
 
 
 @Entity
@@ -30,7 +31,6 @@ public class Customer {
     //private List<Sale> sales;
 
     
-    @Enumerated(EnumType.STRING)
     @Column(name = "customer_level")
     private String customerLevel;
 
