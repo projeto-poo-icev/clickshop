@@ -10,11 +10,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import com.clickshop.entities.CustomerLevel;
 
-
-enum CustomerLevel {
-    BRONZE, PRATA, OURO;
-}
 
 @Entity
 @Table(name = "customers")
@@ -35,16 +32,18 @@ public class Customer {
     
     @Enumerated(EnumType.STRING)
     @Column(name = "customer_level")
-    private CustomerLevel customerLevel;
+    private String customerLevel;
 
     @Column(name = "created_at")
     private LocalDate createdAt;
+
+    public Customer() {}
     
     public Customer(String name) {
         this.name = name;
         this.cashback = 0d;
         this.amountSpent = 0d;
-        this.customerLevel = CustomerLevel.BRONZE;
+        this.customerLevel = CustomerLevel.BRONZE.toString();
         this.createdAt = LocalDate.now();
     }
 
@@ -80,12 +79,12 @@ public class Customer {
         this.amountSpent += saleValue;
     }
 
-    public CustomerLevel getCustomerLevel() {
+    public String getCustomerLevel() {
         return customerLevel;
     }
 
     public void setCustomerLevel(CustomerLevel customerLevel) {
-        this.customerLevel = customerLevel;
+        this.customerLevel = customerLevel.toString();
     }
     
     public LocalDate getCreatedAt() {
