@@ -30,13 +30,16 @@ public class Customer {
 
     private Double amountSpent;
 
+    //private List<Sale> sales;
+
+    
     @Enumerated(EnumType.STRING)
     @Column(name = "customer_level")
     private CustomerLevel customerLevel;
 
     @Column(name = "created_at")
     private LocalDate createdAt;
-
+    
     public Customer(String name) {
         this.name = name;
         this.cashback = 0d;
@@ -52,11 +55,11 @@ public class Customer {
     public void setId(Long id) {
         this.id = id;
     }
-
+    
     public String getName() {
         return name;
     }
-
+    
     public void setName(String name) {
         this.name = name;
     }
@@ -72,7 +75,7 @@ public class Customer {
     public Double getAmountSpent() {
         return amountSpent;
     }
-
+    
     public void setAmountSpent(Double saleValue) {
         this.amountSpent += saleValue;
     }
@@ -84,7 +87,7 @@ public class Customer {
     public void setCustomerLevel(CustomerLevel customerLevel) {
         this.customerLevel = customerLevel;
     }
-
+    
     public LocalDate getCreatedAt() {
         return createdAt;
     }
@@ -93,7 +96,14 @@ public class Customer {
         this.createdAt = createdAt;
     } */
 
-    
+   /* public List<Sale> getSales() {
+       return sales;
+   }
+
+   public void setSales(List<Sale> sales) {
+       this.sales = sales;
+   }
+ */    
 
 
     
