@@ -18,23 +18,23 @@ public class CustomerService {
     @Autowired
     private CustomerRepository customerRepository;
 
-    private CustomerDto createCustomer(CustomerCreationDto newCustomer) {
+    public CustomerDto createCustomer(CustomerCreationDto newCustomer) {
         Customer customer = new Customer(newCustomer.name());
         Customer createdCustomer = customerRepository.save(customer);
         return Utils.CustomerModelToDto(createdCustomer);
     }
 
-    private List<CustomerDto> findAll() {
+    public List<CustomerDto> findAll() {
         List<Customer> customerList = customerRepository.findAll();
         return Utils.CustomerModelListToDtoList(customerList);
     }
 
-    private CustomerDto findById(Long id) {
+    public CustomerDto findById(Long id) {
         Customer customer = customerRepository.findById(id).orElseThrow(CustomerNotFound::new);
         return Utils.CustomerModelToDto(customer);
     }
 
-    private List<CustomerDto> findAllByLevel(String level) {
+    public List<CustomerDto> findAllByLevel(String level) {
         List<Customer> customers = customerRepository.findByCustomerLevel(level);
         return Utils.CustomerModelListToDtoList(customers);
     }
