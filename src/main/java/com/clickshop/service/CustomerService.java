@@ -10,6 +10,7 @@ import com.clickshop.dtos.CustomerDto;
 import com.clickshop.dtos.Utils;
 import com.clickshop.entities.Customer;
 import com.clickshop.repositories.CustomerRepository;
+import com.clickshop.service.exception.CustomerNotFound;
 
 @Service
 public class CustomerService {
@@ -23,10 +24,22 @@ public class CustomerService {
         return Utils.CustomerModelToDto(createdCustomer);
     }
 
-    private List<CustomerDto> findAllCustomers() {
+    private List<CustomerDto> findAll() {
         List<Customer> customerList = customerRepository.findAll();
         return Utils.CustomerModelListToDtoList(customerList);
     }
 
-    
+    private CustomerDto findById(Long id) {
+        Customer customer = customerRepository.findById(id).orElseThrow(CustomerNotFound::new);
+        return Utils.CustomerModelToDto(customer);
+    }
+
+    private List<CustomerDto> findAllByLevel(String level) {
+        List<Customer> customers = customerRepository.findByCustomerLevel(level);
+        return Utils.CustomerModelListToDtoList(customers);
+    }
+
+
+    // criar serviço com relatorio geral da tabela de customer como quantidade, cashback medio, quantidade por fidelidade.
+
 }
