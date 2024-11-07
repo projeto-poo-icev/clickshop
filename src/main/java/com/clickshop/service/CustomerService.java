@@ -1,5 +1,7 @@
 package com.clickshop.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,4 +22,11 @@ public class CustomerService {
         Customer createdCustomer = customerRepository.save(customer);
         return Utils.CustomerModelToDto(createdCustomer);
     }
+
+    private List<CustomerDto> findAllCustomers() {
+        List<Customer> customerList = customerRepository.findAll();
+        return Utils.CustomerModelListToDtoList(customerList);
+    }
+
+    
 }

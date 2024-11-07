@@ -1,5 +1,7 @@
 package com.clickshop.dtos;
 
+import java.util.List;
+
 import com.clickshop.entities.Customer;
 
 public class Utils {
@@ -12,5 +14,9 @@ public class Utils {
             customer.getCustomerLevel(),
             customer.getCreatedAt()
         );
+    }
+
+    public static List<CustomerDto> CustomerModelListToDtoList(List<Customer> customerList) {
+        return customerList.stream().map((customer) -> CustomerModelToDto(customer)).toList();
     }
 }
