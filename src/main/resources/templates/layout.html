@@ -1,0 +1,22 @@
+<!-- layout.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Gestão de Produtos</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+    <!-- Incluindo a Navbar -->
+    <div th:replace="navbar :: navbar"></div>
+
+    <!-- Conteúdo Dinâmico -->
+    <div class="content">
+        <div th:fragment="content"></div>
+    </div>
+
+    <!-- Incluindo o Footer -->
+    <div th:replace="footer :: footer"></div>
+
+</body>
+</html>

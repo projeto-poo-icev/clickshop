@@ -24,6 +24,8 @@ public class Customer {
 
     private String name;
 
+    private String password;
+
     private Double cashback;
 
     private Double amountSpent;
