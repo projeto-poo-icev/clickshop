@@ -2,7 +2,6 @@ package com.clickshop.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.clickshop.dtos.CustomerCreationDto;
@@ -15,11 +14,14 @@ import com.clickshop.service.exception.CustomerNotFound;
 @Service
 public class CustomerService {
     
-    @Autowired
     private CustomerRepository customerRepository;
 
+    public CustomerService(CustomerRepository customerRepository) {
+        this.customerRepository = customerRepository;
+    }
+
     public CustomerDto createCustomer(CustomerCreationDto newCustomer) {
-        Customer customer = new Customer(newCustomer.name());
+        Customer customer = new Customer(newCustomer.name(), newCustomer.cpf());
         Customer createdCustomer = customerRepository.save(customer);
         return Utils.CustomerModelToDto(createdCustomer);
     }

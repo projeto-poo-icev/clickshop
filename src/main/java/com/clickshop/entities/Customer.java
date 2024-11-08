@@ -24,7 +24,7 @@ public class Customer {
 
     private String name;
 
-    private String password;
+    private String cpf;
 
     private Double cashback;
 
@@ -41,8 +41,9 @@ public class Customer {
 
     public Customer() {}
     
-    public Customer(String name) {
+    public Customer(String name, String cpf) {
         this.name = name;
+        this.cpf = cpf;
         this.cashback = 0d;
         this.amountSpent = 0d;
         this.customerLevel = CustomerLevel.BRONZE.toString();
@@ -92,6 +93,16 @@ public class Customer {
     public LocalDate getCreatedAt() {
         return createdAt;
     }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    
 
     /* public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;

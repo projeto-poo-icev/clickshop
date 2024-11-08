@@ -9,6 +9,7 @@ public class Utils {
         return new CustomerDto(
             customer.getId(),
             customer.getName(),
+            customer.getCpf(),
             customer.getCashback(),
             customer.getAmountSpent(),
             customer.getCustomerLevel(),
