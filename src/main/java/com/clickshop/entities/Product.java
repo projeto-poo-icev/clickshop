@@ -20,6 +20,16 @@ public class Product {
 
     public Product() {}
 
+    
+
+    public Product(String description, Double price, Integer quantity) {
+        this.description = description;
+        this.price = price;
+        this.quantity = quantity;
+    }
+
+
+
     public String getDescription() {
         return description;
     }
@@ -50,6 +60,18 @@ public class Product {
 
     public void buy(int quantity) {
         this.quantity += quantity;
+    }
+
+
+
+    public Long getId() {
+        return id;
+    }
+
+
+
+    public void setId(Long id) {
+        this.id = id;
     }
     
 }
