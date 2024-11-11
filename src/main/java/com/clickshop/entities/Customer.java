@@ -1,6 +1,7 @@
 package com.clickshop.entities;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import com.clickshop.utils.CustomerLevel;
 
@@ -9,6 +10,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 
@@ -28,8 +30,8 @@ public class Customer {
 
     private Double amountSpent;
 
-    //private List<Sale> sales;
-
+    @OneToMany(mappedBy = "customer")
+    private List<Sale> sales;
     
     @Column(name = "customer_level")
     private String customerLevel;
@@ -84,8 +86,12 @@ public class Customer {
         return customerLevel;
     }
 
-    public void setCustomerLevel(CustomerLevel customerLevel) {
-        this.customerLevel = customerLevel.toString();
+    public void updateLevel() {
+        if (this.amountSpent > 1000 && this.amountSpent < 2000) {
+            this.customerLevel = CustomerLevel.PRATA.toString();
+        } else if (this.amountSpent >= 2000) {
+            this.customerLevel = CustomerLevel.OURO.toString();
+        }
     }
     
     public LocalDate getCreatedAt() {
@@ -100,20 +106,16 @@ public class Customer {
         this.cpf = cpf;
     }
 
+    public List<Sale> getSales() {
+        return sales;
+    }
+
+    public void setSales(List<Sale> sales) {
+        this.sales = sales;
+    }
+
     
-
-    /* public void setCreatedAt(LocalDate createdAt) {
-        this.createdAt = createdAt;
-    } */
-
-   /* public List<Sale> getSales() {
-       return sales;
-   }
-
-   public void setSales(List<Sale> sales) {
-       this.sales = sales;
-   }
- */    
+    
 
 
     

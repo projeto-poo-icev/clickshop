@@ -1,9 +1,12 @@
 package com.clickshop.entities;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -17,6 +20,9 @@ public class Product {
     private String description;
     private Double price;
     private Integer quantity;
+
+    @OneToMany(mappedBy = "product")
+    private List<SaleDetails> saleDetails;
 
     public Product() {}
 
@@ -73,5 +79,19 @@ public class Product {
     public void setId(Long id) {
         this.id = id;
     }
+
+
+
+    public List<SaleDetails> getSaleDetails() {
+        return saleDetails;
+    }
+
+
+
+    public void setSaleDetails(List<SaleDetails> saleDetails) {
+        this.saleDetails = saleDetails;
+    }
+
+    
     
 }
