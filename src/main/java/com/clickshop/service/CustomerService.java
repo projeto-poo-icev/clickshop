@@ -41,6 +41,15 @@ public class CustomerService {
         return Utils.CustomerModelListToDtoList(customers);
     }
 
+    public CustomerDto findByCpf(String cpf) {
+        Customer customer = customerRepository.findByCpf(cpf).orElseThrow(CustomerNotFound::new);
+        return Utils.CustomerModelToDto(customer);
+    }
+
+    public void deleteAll() {
+        customerRepository.deleteAll();
+    }
+
 
     // criar serviço com relatorio geral da tabela de customer como quantidade, cashback medio, quantidade por fidelidade.
 
