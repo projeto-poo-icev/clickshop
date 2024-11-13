@@ -1,5 +1,5 @@
 package com.clickshop.utils;
 
 public enum CustomerLevel {
-    BRONZE, PRATA, OURO;
+    BRONZE, PRATA, VIP;
 }

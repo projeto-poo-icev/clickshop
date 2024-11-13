@@ -29,9 +29,6 @@ public class Customer {
     private Double cashback;
 
     private Double amountSpent;
-
-    @OneToMany(mappedBy = "customer")
-    private List<Sale> sales;
     
     @Column(name = "customer_level")
     private String customerLevel;
@@ -90,13 +87,14 @@ public class Customer {
         if (this.amountSpent > 1000 && this.amountSpent < 2000) {
             this.customerLevel = CustomerLevel.PRATA.toString();
         } else if (this.amountSpent >= 2000) {
-            this.customerLevel = CustomerLevel.OURO.toString();
+            this.customerLevel = CustomerLevel.VIP.toString();
         }
     }
     
     public LocalDate getCreatedAt() {
         return createdAt;
     }
+
 
     public String getCpf() {
         return cpf;
@@ -105,17 +103,6 @@ public class Customer {
     public void setCpf(String cpf) {
         this.cpf = cpf;
     }
-
-    public List<Sale> getSales() {
-        return sales;
-    }
-
-    public void setSales(List<Sale> sales) {
-        this.sales = sales;
-    }
-
-    
-    
 
 
     

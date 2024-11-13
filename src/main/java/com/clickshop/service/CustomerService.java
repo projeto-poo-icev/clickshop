@@ -46,6 +46,10 @@ public class CustomerService {
         return Utils.CustomerModelToDto(customer);
     }
 
+    public void updateCustomer(Customer customer) {
+        customerRepository.save(customer);
+    }
+
     public void deleteAll() {
         customerRepository.deleteAll();
     }

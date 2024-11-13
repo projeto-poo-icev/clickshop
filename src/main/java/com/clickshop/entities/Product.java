@@ -21,9 +21,6 @@ public class Product {
     private Double price;
     private Integer quantity;
 
-    @OneToMany(mappedBy = "product")
-    private List<SaleDetails> saleDetails;
-
     public Product() {}
 
     
@@ -78,18 +75,6 @@ public class Product {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-
-
-    public List<SaleDetails> getSaleDetails() {
-        return saleDetails;
-    }
-
-
-
-    public void setSaleDetails(List<SaleDetails> saleDetails) {
-        this.saleDetails = saleDetails;
     }
 
     

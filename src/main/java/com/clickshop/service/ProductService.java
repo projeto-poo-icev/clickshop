@@ -35,4 +35,8 @@ public class ProductService {
         List<Product> productList = productRepository.findAll();
         return Utils.ProductModelListToDto(productList);
     }
+
+    public Double findPriceById(Long id) {
+        return productRepository.findById(id).orElseThrow(ProductNotFound::new).getPrice();
+    }
 }

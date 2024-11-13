@@ -5,6 +5,7 @@ import java.util.List;
 import com.clickshop.entities.Customer;
 import com.clickshop.entities.Product;
 
+
 public class Utils {
     public static CustomerDto CustomerModelToDto(Customer customer) {
         return new CustomerDto(
@@ -34,4 +35,5 @@ public class Utils {
     public static List<ProductDto> ProductModelListToDto(List<Product> productList) {
         return productList.stream().map((product) -> ProductModelToDto(product)).toList();
     }
+
 }
