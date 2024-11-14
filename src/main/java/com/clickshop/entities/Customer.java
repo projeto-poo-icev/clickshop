@@ -89,13 +89,6 @@ public class Customer {
         return customerLevel;
     }
 
-    public void updateLevel() {
-        if (this.amountSpent > 1000 && this.amountSpent < 2000) {
-            this.customerLevel = CustomerLevel.PRATA.toString();
-        } else if (this.amountSpent >= 2000) {
-            this.customerLevel = CustomerLevel.VIP.toString();
-        }
-    }
     
     public LocalDate getCreatedAt() {
         return createdAt;
@@ -116,6 +109,24 @@ public class Customer {
 
     public List<Sale> getSales() {
         return this.sales;
+    }
+
+    public void updateLevel() {
+        if (this.amountSpent > 1000 && this.amountSpent < 2000) {
+            this.customerLevel = CustomerLevel.PRATA.toString();
+        } else if (this.amountSpent >= 2000) {
+            this.customerLevel = CustomerLevel.VIP.toString();
+        }
+    }
+
+    public Double getDiscount() {
+        if (this.customerLevel == CustomerLevel.BRONZE.toString()) {
+            return 0.05;
+        } else if (this.customerLevel == CustomerLevel.PRATA.toString()) {
+            return 0.15;
+        } 
+        return 0.25;
+        
     }
 
 
