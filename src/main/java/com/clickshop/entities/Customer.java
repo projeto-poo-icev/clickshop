@@ -36,6 +36,10 @@ public class Customer {
     @Column(name = "created_at")
     private LocalDate createdAt;
 
+    @OneToMany(mappedBy = "customer")
+    private List<Sale> sales;
+
+
     public Customer() {}
     
     public Customer(String name, String cpf) {
@@ -77,6 +81,8 @@ public class Customer {
     
     public void setAmountSpent(Double saleValue) {
         this.amountSpent += saleValue;
+        updateLevel();
+        setCashback(saleValue);
     }
 
     public String getCustomerLevel() {
@@ -102,6 +108,14 @@ public class Customer {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
+    }
+
+    public void addSale (Sale sale) {
+        this.sales.add(sale);
+    }
+
+    public List<Sale> getSales() {
+        return this.sales;
     }
 
 
