@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.clickshop.dtos.SaleCreationDto;
+import com.clickshop.dtos.SaleDto;
 import com.clickshop.dtos.SaleProductListDto;
 import com.clickshop.service.SaleService;
 
@@ -22,8 +23,7 @@ public class SaleControllerApi {
     public SaleService saleService;
 
     @PostMapping(value = "/createSale")
-    public ResponseEntity<String> createSale(@RequestBody SaleCreationDto saleDto) throws BadRequestException {
-        saleService.createSale(saleDto);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Venda criada");
+    public ResponseEntity<SaleDto> createSale(@RequestBody SaleCreationDto saleDto) throws BadRequestException {
+        return ResponseEntity.status(HttpStatus.CREATED).body(saleService.createSale(saleDto));
     }
 }

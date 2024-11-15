@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.clickshop.entities.Customer;
 import com.clickshop.entities.Product;
+import com.clickshop.entities.Sale;
+import com.clickshop.entities.SaleDetails;
 
 
 public class Utils {
@@ -34,6 +36,30 @@ public class Utils {
 
     public static List<ProductDto> ProductModelListToDto(List<Product> productList) {
         return productList.stream().map((product) -> ProductModelToDto(product)).toList();
+    }
+
+    public static SaleDetailsDto saleDetailsModeltoDto(SaleDetails saleDetails) {
+        return new SaleDetailsDto(
+            saleDetails.getProduct().getId(),
+            saleDetails.getProduct().getDescription(),
+            saleDetails.getQuantity(),
+            saleDetails.getProduct().getPrice()
+        );
+    }
+
+    public static List<SaleDetailsDto> saleDetailsModelListToDto(List<SaleDetails> sailDetailsList) {
+        return sailDetailsList.stream().map(item -> saleDetailsModeltoDto(item)).toList();
+    }
+
+    public static SaleDto saleModelToDto(Sale sale) {
+        return new SaleDto(
+            sale.getId(),
+            sale.getPaymentMethod(),
+            sale.getCashback(),
+            CustomerModelToDto(sale.getCustomer()),
+            sale.getAmountPaid(),
+            saleDetailsModelListToDto(sale.getSaleDetails())
+        );
     }
 
 }

@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.clickshop.dtos.SaleCreationDto;
+import com.clickshop.dtos.SaleDto;
 import com.clickshop.dtos.SaleProductListDto;
+import com.clickshop.dtos.Utils;
 import com.clickshop.entities.Customer;
 import com.clickshop.entities.Product;
 import com.clickshop.entities.Sale;
@@ -37,7 +39,7 @@ public class SaleService {
 
 
 
-    public void createSale(SaleCreationDto saleDto) throws BadRequestException {
+    public SaleDto createSale(SaleCreationDto saleDto) throws BadRequestException {
         System.out.println(saleDto);
         
         if (saleDto.userId() == null) {
@@ -76,7 +78,19 @@ public class SaleService {
     
         
         saleDetailsList.forEach(item -> item.setSale(sale));
-        saleDetailsRepository.saveAll(saleDetailsList);
+        saleDetailsList.forEach(item -> item.getProduct().sell(item.getQuantity()));
+        saleDetailsList.forEach(item -> productRepository.save(item.getProduct()));
+
+        customer.addSale(sale);
+        customer.setAmountSpent(sale.getAmountPaid(), totalAmount);
+        customerRepository.save(customer);
+       
+        List<SaleDetails> saleDetails = saleDetailsRepository.saveAll(saleDetailsList);
+        sale.setSaleDetails(saleDetails);
+        saleRepository.save(sale);
+        
+
+        return Utils.saleModelToDto(sale);
     }
     
 }

@@ -1,5 +1,6 @@
 package com.clickshop.entities;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -27,6 +28,7 @@ public class Customer {
     private String cpf;
 
     private Double cashback;
+    
 
     private Double amountSpent;
     
@@ -71,18 +73,18 @@ public class Customer {
         return cashback;
     }
 
-    public void setCashback(Double saleValue) {
-        this.cashback += saleValue * 0.1;
+    public void setCashback(Double totalAmount) {
+        this.cashback += totalAmount * 0.1;
     }
 
     public Double getAmountSpent() {
         return amountSpent;
     }
     
-    public void setAmountSpent(Double saleValue) {
-        this.amountSpent += saleValue;
+    public void setAmountSpent(BigDecimal saleValue, Double totalAmount) {
+        this.amountSpent += saleValue.doubleValue();
         updateLevel();
-        setCashback(saleValue);
+        setCashback(totalAmount);
     }
 
     public String getCustomerLevel() {
@@ -105,6 +107,7 @@ public class Customer {
 
     public void addSale (Sale sale) {
         this.sales.add(sale);
+        this.cashback -= sale.getCashback();
     }
 
     public List<Sale> getSales() {
