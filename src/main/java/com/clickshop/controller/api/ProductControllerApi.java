@@ -11,11 +11,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.clickshop.dtos.ProductCreationDto;
 import com.clickshop.dtos.ProductDto;
 import com.clickshop.service.ProductService;
+
+import jakarta.websocket.server.PathParam;
 
 
 @RestController
@@ -38,5 +41,10 @@ public class ProductControllerApi {
     @GetMapping(value = "/product")
     public ResponseEntity<List<ProductDto>> findall() {
         return ResponseEntity.status(HttpStatus.OK).body(productService.findAll());
+    }
+
+    @PostMapping(value = "/product/{id}")
+    public ResponseEntity<ProductDto> replenishStock (@PathVariable Long id, @RequestParam(name = "quantity") Integer quantity) {
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(productService.replenishStock(id, quantity));
     }
 }

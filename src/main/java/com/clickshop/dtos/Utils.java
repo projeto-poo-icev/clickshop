@@ -2,6 +2,7 @@ package com.clickshop.dtos;
 
 import java.util.List;
 
+import com.clickshop.entities.Coupon;
 import com.clickshop.entities.Customer;
 import com.clickshop.entities.Product;
 import com.clickshop.entities.Sale;
@@ -60,6 +61,19 @@ public class Utils {
             sale.getAmountPaid(),
             saleDetailsModelListToDto(sale.getSaleDetails())
         );
+    }
+
+    public static CouponDto couponModelToDto(Coupon coupon) {
+        return new CouponDto(
+            coupon.getId(),
+            coupon.getName(),
+            coupon.getDiscount(),
+            coupon.getStatus()
+        );
+    }
+
+    public static List<CouponDto> couponModelListToDto(List<Coupon> couponList) {
+        return couponList.stream().map(coupon -> couponModelToDto(coupon)).toList();
     }
 
 }

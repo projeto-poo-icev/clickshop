@@ -21,6 +21,8 @@ import com.clickshop.repositories.SaleDetailsRepository;
 import com.clickshop.repositories.SaleRepository;
 import com.clickshop.service.exception.CustomerNotFound;
 import com.clickshop.service.exception.ProductNotFound;
+import com.clickshop.service.exception.SaleNotFound;
+import com.clickshop.utils.OrderStatus;
 
 @Service
 public class SaleService {
@@ -59,10 +61,14 @@ public class SaleService {
                 if (product.productId() == null) {
                     throw new IllegalArgumentException("O ID do produto não pode ser nulo.");
                 }
+                Product productItem = productRepository.findById(product.productId())
+                .orElseThrow(() -> new ProductNotFound());
+                if (productItem.getQuantity() < product.quantity()) {
+                    throw new IllegalArgumentException("Estoque insuficiente");
+                }
                 return new SaleDetails(
                     product.quantity(),
-                    productRepository.findById(product.productId())
-                                     .orElseThrow(() -> new ProductNotFound())
+                    productItem
                 );
             })
             .toList();
@@ -91,6 +97,17 @@ public class SaleService {
         
 
         return Utils.saleModelToDto(sale);
+    }
+
+    public SaleDto updateSaleStatus(Long id) {
+        Sale sale = saleRepository.findById(id).orElseThrow(SaleNotFound::new);
+        if(sale.getStatus() == OrderStatus.ENTREGUE.toString()) {
+            throw new IllegalArgumentException("O produto ja foi entregue!");
+        }
+        sale.updateStatus();
+        Sale updatedSale = saleRepository.save(sale);
+
+        return Utils.saleModelToDto(updatedSale);
     }
     
 }

@@ -39,4 +39,11 @@ public class ProductService {
     public Double findPriceById(Long id) {
         return productRepository.findById(id).orElseThrow(ProductNotFound::new).getPrice();
     }
+
+    public ProductDto replenishStock(Long id, Integer quantity) {
+        Product product = productRepository.findById(id).orElseThrow(ProductNotFound::new);
+        product.buy(quantity);
+        Product updatedProduct = productRepository.save(product);
+        return Utils.ProductModelToDto(updatedProduct);
+    }
 }

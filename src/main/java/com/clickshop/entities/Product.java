@@ -56,10 +56,6 @@ public class Product {
         return quantity;
     }
 
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
-
     public void sell(int quantity) {
         this.quantity -= quantity;
     }

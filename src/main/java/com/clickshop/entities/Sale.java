@@ -45,15 +45,20 @@ public class Sale {
     @OneToMany(mappedBy = "sale")
     private List<SaleDetails> saleDetails;
 
+    @ManyToOne()
+    @JoinColumn(name = "coupon_id")
+    private Coupon coupon;
+
     public Sale() {}
 
-    public Sale(String paymentMethod, Double cashback, Customer customer, Double totalAmount) {
+    public Sale(String paymentMethod, Double cashback, Customer customer, Double totalAmount, Coupon coupon) {
         this.paymentMethod = paymentMethod;
         this.cashback = cashback;
         this.customer = customer;
         this.totalAmount = totalAmount;
+        this.coupon = coupon;
         this.status = OrderStatus.PENDENTE.toString();
-        this.amountPaid = new BigDecimal(this.totalAmount * (1 - this.customer.getDiscount()) - this.cashback);
+        this.amountPaid = new BigDecimal(this.totalAmount * (1 - this.coupon.getDiscount()) - this.cashback);
     }
 
     public Long getId() {
@@ -124,10 +129,18 @@ public class Sale {
         this.saleDetails = saleDetails;
     }
 
+    public Coupon getCoupon() {
+        return coupon;
+    }
+
+    public void setCoupon(Coupon coupon) {
+        this.coupon = coupon;
+    }
+
     
 
 
-
+    
 
 
 
