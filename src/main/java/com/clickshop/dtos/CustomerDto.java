@@ -11,6 +11,7 @@ public record CustomerDto(
     Double amountSpent,
     String CustomerLevel,
     LocalDate createdAt
+    
 ) {
     
 }

@@ -58,6 +58,7 @@ public class Sale {
         this.totalAmount = totalAmount;
         this.coupon = coupon;
         this.status = OrderStatus.PENDENTE.toString();
+        
         this.amountPaid = new BigDecimal(this.totalAmount * (1 - this.coupon.getDiscount()) - this.cashback);
     }
 
