@@ -38,6 +38,6 @@ public class SaleControllerApi {
 
     @GetMapping(value = "/paymentMethods")
     public ResponseEntity<List<PaymentsMethods>> getPaymentsMethods() {
-        return ResponseEntity.status(HttpStatus.OK).body(saleService.getPaymentsMethods())
+        return ResponseEntity.status(HttpStatus.OK).body(saleService.getPaymentsMethods());
     }
 }
