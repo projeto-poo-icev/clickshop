@@ -11,6 +11,7 @@ public record SaleDto(
     Double cashback,
     CustomerDto customer,
     BigDecimal amountPaid,
+    CouponDto coupon,
     List<SaleDetailsDto> productList
 ) {
     

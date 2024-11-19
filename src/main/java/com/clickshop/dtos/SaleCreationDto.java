@@ -6,6 +6,7 @@ public record SaleCreationDto(
     Long userId,
     String paymentMethod,
     Double cashback,
+    String coupon,
     List<SaleProductListDto> productList
 ) {
     

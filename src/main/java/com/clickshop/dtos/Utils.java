@@ -59,6 +59,7 @@ public class Utils {
             sale.getCashback(),
             CustomerModelToDto(sale.getCustomer()),
             sale.getAmountPaid(),
+            couponModelToDto(sale.getCoupon()),
             saleDetailsModelListToDto(sale.getSaleDetails())
         );
     }

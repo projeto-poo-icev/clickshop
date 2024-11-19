@@ -1,5 +1,6 @@
 package com.clickshop.service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -11,18 +12,22 @@ import com.clickshop.dtos.SaleCreationDto;
 import com.clickshop.dtos.SaleDto;
 import com.clickshop.dtos.SaleProductListDto;
 import com.clickshop.dtos.Utils;
+import com.clickshop.entities.Coupon;
 import com.clickshop.entities.Customer;
 import com.clickshop.entities.Product;
 import com.clickshop.entities.Sale;
 import com.clickshop.entities.SaleDetails;
+import com.clickshop.repositories.CouponRepository;
 import com.clickshop.repositories.CustomerRepository;
 import com.clickshop.repositories.ProductRepository;
 import com.clickshop.repositories.SaleDetailsRepository;
 import com.clickshop.repositories.SaleRepository;
+import com.clickshop.service.exception.CouponNotFound;
 import com.clickshop.service.exception.CustomerNotFound;
 import com.clickshop.service.exception.ProductNotFound;
 import com.clickshop.service.exception.SaleNotFound;
 import com.clickshop.utils.OrderStatus;
+import com.clickshop.utils.PaymentsMethods;
 
 @Service
 public class SaleService {
@@ -38,6 +43,9 @@ public class SaleService {
 
     @Autowired
     SaleDetailsRepository saleDetailsRepository;
+
+    @Autowired
+    CouponRepository couponRepository;
 
 
 
@@ -55,7 +63,8 @@ public class SaleService {
             throw new BadRequestException("Saldo de cashback insuficiente");
         }
     
-        
+        Coupon coupon = couponRepository.findByName(saleDto.coupon()).orElseThrow(CouponNotFound::new);
+
         List<SaleDetails> saleDetailsList = saleDto.productList().stream()
             .map(product -> {
                 if (product.productId() == null) {
@@ -78,8 +87,8 @@ public class SaleService {
                                             .mapToDouble(item -> item.getProduct().getPrice() * item.getQuantity())
                                             .sum();
     
-        
-        Sale newSale = new Sale(saleDto.paymentMethod(), saleDto.cashback(), customer, totalAmount);
+            
+        Sale newSale = new Sale(saleDto.paymentMethod(), saleDto.cashback(), customer, totalAmount, coupon);
         Sale sale = saleRepository.save(newSale);
     
         
@@ -90,6 +99,9 @@ public class SaleService {
         customer.addSale(sale);
         customer.setAmountSpent(sale.getAmountPaid(), totalAmount);
         customerRepository.save(customer);
+
+        coupon.getSale().add(sale);
+        couponRepository.save(coupon);
        
         List<SaleDetails> saleDetails = saleDetailsRepository.saveAll(saleDetailsList);
         sale.setSaleDetails(saleDetails);
@@ -108,6 +120,10 @@ public class SaleService {
         Sale updatedSale = saleRepository.save(sale);
 
         return Utils.saleModelToDto(updatedSale);
+    }
+
+    public List<PaymentsMethods> getPaymentsMethods() {
+        return Arrays.asList(PaymentsMethods.values());
     }
     
 }
